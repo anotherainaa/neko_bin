@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Request Binge</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">RequestBinge</a>
+    </nav>
+
+    <h1>Request Binge lets you inspect requests</h1>
+    <p>Request Binge will collect requests made to it and let you inspect them in a human-friendly way.</p>
+
+    <form action="/bins" method="post">
+        <input type="submit" value="Create a new Bin" />
+    </form>
+
+    <h3>All bins</h3>
+
+    <ul>
+    {{#each bins}}
+      <li>
+        <a href="/bins/{{this.url}}">{{this.url}}</a>
+      </li>
+    {{/each}}
+    </ul>
+
+  </body>
+</html>

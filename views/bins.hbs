@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Request Binge</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">RequestBinge</a>
+    </nav>
+
+    <h1>Your Bin</h1>
+    <p>Created at: {{created_at}}</p>
+
+    <hr>
+
+    <h2>Requests</h2>
+
+    <ul>
+      {{#each requests}}
+      <div>
+        <hr>
+        <li>
+          <p>HTTP Method: {{this.request_method}} </p>
+          <p>From: {{this.ip_address}}</p>
+          <p>Received at: {{this.received_at}}</p>
+          {{!-- <p>Headers: {{this.headers}}</p> --}}
+          <p>Headers: {{#each headers}}
+            <div>{{@key}}: {{this}}</div>
+            {{/each}}
+          </p>
+          <p>Raw payload: {{this.payload}}</p>
+        </li>
+        <hr>
+      </div>
+      {{/each}}
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "requestbinimitator",
+  "version": "0.0.1",
+  "description": "RequestBin Implementation",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "createdb": "createdb requestbin && psql -d requestbin < schema.sql",
+    "dropdb": "dropdb requestbin",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ainaa Sakinah, Ahmad Jiha, Lawrence Tam, Sam Harreschou",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "hbs": "^4.2.0",
+    "http": "^0.0.1-security",
+    "mongoose": "^6.3.5",
+    "pg-promise": "^10.11.1"
+  }
+}
