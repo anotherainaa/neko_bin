@@ -1,33 +1,17 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const PORT = process.env.PORT // eslint-disable-line
+const config = require('./lib/config');
+const express = require('express');
+const app = express();
+const PORT = config.PORT; // eslint-disable-line
 
-app.use(express.json());
-// Handle bars
-const hbs = require('hbs');
-app.set('view engine', 'hbs');
+// Database
+const { db } = require('./lib/db-query');
+const { findRequests, createRequest } = require('./mongo');
+
 // Crypto for creating a random URL hash
 const crypto = require('crypto');
 
-// Database connection
-const pgp = require('pg-promise')();
-
-const CONNECTION = {
-  type: "postgres",
-  host: "localhost",
-  port: 5432,
-  database: "requestbin",
-  allowExitOnIdle: true,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
-};
-
-const db = pgp(CONNECTION);
-
-// Setting up mongodb
-const { findRequests, createRequest } = require('./mongo');
+app.set('view engine', 'hbs');
+app.use(express.json());
 
 // ======== ROUTES / MAIN APP ================
 
@@ -92,7 +76,7 @@ app.post('/bins/:binsUrl', (request, response) => {
   const httpMethod = request.method;
   const ipAddress = request.get('x-forwarded-for');
 
-  console.log("request body", request.body)
+  // console.log("request body", request.body)
   
   const payload = JSON.stringify(request.body) || JSON.stringify({"body":""});
 
