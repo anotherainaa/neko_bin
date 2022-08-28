@@ -1,0 +1,23 @@
+<!-- card -->
+<section class="bg-white">
+  <div class="mx-auto max-w-5xl px-6 py-16 text-center">
+    <div class="flex flex-col items-center justify-center">
+      <h2 class="text-3xl font-semibold text-gray-800">All bins</h2>
+      <div class="w-24 border-b-4 border-yellow-400"></div>
+    </div>
+    <div class="flex justify-center">
+      <div class="block p-6 rounded-lg shadow-lg bg-white max-w-2xl">
+        <div class="flex justify-center">
+          <ul class="bg-white rounded-lg border border-gray-200 w-180 text-gray-900">
+            {{#each bins}}
+              <li class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                <a href="/bins/{{this.url}}" class="mt-4 text-gray-600">{{this.url}}</a>
+                <p>{{this.date_created}}</p>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

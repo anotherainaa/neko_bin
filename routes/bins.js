@@ -7,6 +7,13 @@ const { findRequests, createRequest } = require('../mongo');
 // Crypto for creating a random URL hash
 const crypto = require('crypto');
 
+router.get('/', (request, response) => {
+  db.any("SELECT * FROM bins")
+    .then(bins =>
+      response.render('allbins', { bins: bins })
+    )
+});
+
 router.get('/:binsUrl', (request, response) => {
   const binsUrl = request.params.binsUrl;
 
@@ -23,11 +30,11 @@ router.get('/:binsUrl', (request, response) => {
             })
   
             const binCreatedAt = requests[0] ? requests[0].date_created : null
-            response.render('bins', {created_at: binCreatedAt, requests: requests})
+            response.render('singlebin', {created_at: binCreatedAt, requests: requests})
           })
         } else {
           const binCreatedAt = requests[0] ? requests[0].date_created : null
-          response.render('bins', {created_at: binCreatedAt, requests: requests})
+          response.render('singlebin', {created_at: binCreatedAt, requests: requests})
         }
     })
 })
