@@ -1,29 +1,100 @@
 <!doctype html>
 <html>
   <head>
-    <title>Request Binge</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neko Bin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
   </head>
   <body>
-    <nav>
-      <a href="/">RequestBinge</a>
-    </nav>
+    <header class="bg-white" x-data="{ isOpen: false }">
+      <nav class="container mx-auto px-8 py-4 md:flex md:items-center md:justify-between">
+        <div class="flex items-center justify-between">
+          <a class="text-xl font-bold text-gray-900 md:text-2xl" href="/">Neko Bin</a>
 
-    <h1>Request Binge lets you inspect requests</h1>
-    <p>Request Binge will collect requests made to it and let you inspect them in a human-friendly way.</p>
+          <!-- Mobile menu button -->
+          <div @click="isOpen = !isOpen" class="flex md:hidden">
+            <button type="button" class="text-gray-800 hover:text-gray-400 focus:text-gray-400 focus:outline-none" aria-label="toggle menu">
+              <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
+                <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
 
-    <form action="/bins" method="post">
-        <input type="submit" value="Create a new Bin" />
-    </form>
+        <div :class="isOpen ? 'flex' : 'hidden'" class="mt-2 flex-col space-y-4 md:mt-0 md:flex md:flex-row md:items-center md:space-y-0 md:space-x-10">
+          <a class="transform text-gray-800 hover:text-yellow-400" href="/">Home</a>
+        </div>
+      </nav>
+    </header>
 
-    <h3>All bins</h3>
+   <div
+      class="relative overflow-hidden bg-no-repeat bg-cover"
+      style="
+        background-position: 50%;
+        background-image: url('https://images.unsplash.com/photo-1615111784767-4d7c527f32a1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80');
+        height: 600px;
+      "
+    >
+      <div
+        class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"
+        style="background-color: rgba(0, 0, 0, 0.75)"
+      >
+        <div class="flex justify-center items-center h-full">
+          <div class="text-center text-white px-6 md:px-12">
+            <h1 class="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-12">
+              Neko Bin
+            </h1>
+            <div class="leading-relaxed">Neko Bin will collect requests made to it and let you inspect them in a human-friendly way.</div>
+            <form action="/bins" method="post">
+              <input 
+                type="submit" 
+                value="Create a new Bin" 
+                class="mt-4 rounded-xl bg-gradient-to-b from-yellow-300 to-yellow-500 px-8 py-2 text-xl text-white hover:shadow-2xl"
+                />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <ul>
-    {{#each bins}}
-      <li>
-        <a href="/bins/{{this.url}}">{{this.url}}</a>
-      </li>
-    {{/each}}
-    </ul>
 
+    <!-- card -->
+    <section class="bg-white">
+      <div class="mx-auto max-w-5xl px-6 py-16 text-center">
+        <div class="flex flex-col items-center justify-center">
+          <h2 class="text-3xl font-semibold text-gray-800">All bins</h2>
+          <div class="w-24 border-b-4 border-yellow-400"></div>
+        </div>
+        <div class="flex justify-center">
+          <div class="block p-6 rounded-lg shadow-lg bg-white max-w-2xl">
+            <div class="flex justify-center">
+              <ul class="bg-white rounded-lg border border-gray-200 w-180 text-gray-900">
+                {{#each bins}}
+                  <li class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                    <a href="/bins/{{this.url}}" class="mt-4 text-gray-600">{{this.url}}</a>
+                    <p>{{this.date_created}}</p>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+        <!-- footer -->
+    <footer class="bg-gray-100 text-white">
+      <div class="container mx-auto flex items-center px-5 py-8">
+        <p class="text-sm text-black">
+          Created in 2022 by Ainaa.
+        </p>
+      </div>
+    </footer>
   </body>
 </html>

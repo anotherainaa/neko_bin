@@ -1,9 +1,15 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-
+const PORT = process.env.PORT // eslint-disable-line
 
 app.use(express.json());
+// Handle bars
+const hbs = require('hbs');
+app.set('view engine', 'hbs');
+// Crypto for creating a random URL hash
+const crypto = require('crypto');
+
 // Database connection
 const pgp = require('pg-promise')();
 
@@ -20,22 +26,8 @@ const CONNECTION = {
 
 const db = pgp(CONNECTION);
 
-// Handle bars
-// https://github.com/ericf/express-handlebars
-const hbs = require('hbs');
-
-// Register handlebars view engine
-app.set('view engine', 'hbs')
-
-// Crypto for creating a random URL hash
-const crypto = require('crypto');
-
 // Setting up mongodb
-
 const { findRequests, createRequest } = require('./mongo');
-
-// Experimenting with sockets
-
 
 // ======== ROUTES / MAIN APP ================
 
@@ -103,7 +95,6 @@ app.post('/bins/:binsUrl', (request, response) => {
   console.log("request body", request.body)
   
   const payload = JSON.stringify(request.body) || JSON.stringify({"body":""});
-  // console.log("raw payload", request.body)
 
   db.any(`SELECT id FROM bins WHERE url = '${binsUrl}'`)
     .then(id => {
@@ -121,20 +112,6 @@ app.post('/bins/:binsUrl', (request, response) => {
   response.status(200).end()
 })
 
-const PORT = process.env.PORT // eslint-disable-line
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
-
-// require mongoose
-
-// as a user, I can open a new bin
- // - clicking on button opens a new page with a new bin created
-
-// as a user, I can get a URL in my new bin to use as a webhook URL
-// as a user, I can see webhook requests coming into my bin
-// as a user, I can see webhook request coming into my bin without refreshing the page
-
-// I can see a previous bin that I created? sessions?
-// https://newbedev.com/how-to-generate-random-sha1-hash-to-use-as-id-in-node-js

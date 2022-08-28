@@ -13,7 +13,8 @@
   "author": "Ainaa Sakinah, Ahmad Jiha, Lawrence Tam, Sam Harreschou",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "tailwindcss": "^3.1.8"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
